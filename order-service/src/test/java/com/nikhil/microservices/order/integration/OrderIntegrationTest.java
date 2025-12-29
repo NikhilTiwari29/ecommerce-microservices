@@ -17,10 +17,10 @@ public class OrderIntegrationTest extends BaseIntegrationTestConfiguration {
 
         String requestBody = """
                 {
-                     "skuCode" : "iphone 17",
-                     "price" : 1000,
-                     "quantity" : 101
-                 }
+                      "skuCode" : "iphone 15",
+                      "price" : 100,
+                      "quantity" : 10
+                  }
                 """;
 
         RestAssured.given()
@@ -32,9 +32,9 @@ public class OrderIntegrationTest extends BaseIntegrationTestConfiguration {
                 .statusCode(201)
                 .body("data.id", Matchers.notNullValue())
                 .body("data.id", Matchers.equalTo(1))
-                .body("data.skuCode", Matchers.equalTo("iphone 17"))
-                .body("data.price", Matchers.equalTo(1000))
-                .body("data.quantity", Matchers.equalTo(101));
+                .body("data.skuCode", Matchers.equalTo("iphone 15"))
+                .body("data.price", Matchers.equalTo(100))
+                .body("data.quantity", Matchers.equalTo(10));
 
     }
 
