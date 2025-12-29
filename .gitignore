@@ -1,0 +1,14 @@
+# Ignore local runtime data
+order-service/mysql/
+product-service/data/
+**/.mongodb/
+**/diagnostic.data/
+**/#innodb*
+**/journal/
+
+# Build output
+target/
+
+# IDE
+.idea/
+*.iml
