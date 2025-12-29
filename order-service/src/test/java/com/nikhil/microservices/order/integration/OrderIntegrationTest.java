@@ -6,6 +6,8 @@ import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
+import static io.restassured.RestAssured.given;
+
 public class OrderIntegrationTest extends BaseIntegrationTestConfiguration {
 
     private static final String BASE_PATH = "/api/order";
@@ -54,11 +56,9 @@ public class OrderIntegrationTest extends BaseIntegrationTestConfiguration {
                 .post(BASE_PATH)
                 .then()
                 .statusCode(400)
-                .body("data.id", Matchers.notNullValue())
-                .body("data.id", Matchers.equalTo(1))
-                .body("data.skuCode", Matchers.equalTo("iphone 17"))
-                .body("data.price", Matchers.equalTo(1000))
-                .body("data.quantity", Matchers.equalTo(101));
+                .body("error.message", Matchers.equalTo("Validation failed"))
+                .body("error.fieldErrors[0].field", Matchers.equalTo("price"))
+                .body("error.fieldErrors[0].message", Matchers.equalTo("Order price is required."));
 
     }
 }
