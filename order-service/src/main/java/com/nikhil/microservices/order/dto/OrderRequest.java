@@ -11,7 +11,6 @@ public record OrderRequest(
         @Size(max = 255, message = "{order.skuCode.size}")
         String skuCode,
 
-        @NotNull(message = "{order.price.notNull}")
         @Digits(integer = 17, fraction = 2, message = "{order.price.digits}")
         BigDecimal price,
 

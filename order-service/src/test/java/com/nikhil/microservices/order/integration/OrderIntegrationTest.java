@@ -39,26 +39,14 @@ public class OrderIntegrationTest extends BaseIntegrationTestConfiguration {
     }
 
     @Test
-    public void shouldFailWhenPriceIsNull(){
+    void shouldFailWhenBodyIsEmpty() {
 
-        String requestBody = """
-                {
-                     "skuCode" : "iphone 17",
-                     "price" : null,
-                     "quantity" : 101
-                 }
-                """;
-
-        RestAssured.given()
+        given()
                 .contentType(ContentType.JSON)
-                .body(requestBody)
                 .when()
                 .post(BASE_PATH)
                 .then()
                 .statusCode(400)
-                .body("error.message", Matchers.equalTo("Validation failed"))
-                .body("error.fieldErrors[0].field", Matchers.equalTo("price"))
-                .body("error.fieldErrors[0].message", Matchers.equalTo("Order price is required."));
-
+                .body("error.message", Matchers.equalTo("Malformed JSON request"));
     }
 }
