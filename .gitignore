@@ -1,5 +1,6 @@
 # Ignore local runtime data
 order-service/mysql/
+inventory-service/mysql/
 product-service/data/
 **/.mongodb/
 **/diagnostic.data/

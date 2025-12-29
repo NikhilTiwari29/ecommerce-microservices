@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# MySQL docker volume (must never be committed)
+inventory-service/mysql/
+mysql/
+
