@@ -31,3 +31,18 @@ build/
 
 ### VS Code ###
 .vscode/
+
+############################
+# Docker / runtime data
+############################
+volume-data/
+**/volume-data/
+**/*.sock
+
+############################
+# Database runtime files
+############################
+**/ibdata*
+**/ib_buffer_pool
+**/auto.cnf
+**/binlog*
