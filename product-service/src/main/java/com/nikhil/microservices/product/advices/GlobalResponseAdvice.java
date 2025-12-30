@@ -40,7 +40,9 @@ public class GlobalResponseAdvice implements ResponseBodyAdvice<Object> {
         // ✅ Bypass Swagger / SpringDoc endpoints
         if (path.startsWith("/v3/api-docs")
                 || path.startsWith("/swagger-ui")
-                || path.startsWith("/swagger-ui.html")) {
+                || path.startsWith("/swagger-ui.html")
+                || path.startsWith("/api-docs")
+        ) {
             return body;
         }
 

@@ -6,6 +6,9 @@ services:
   inventory:
     base-url: http://localhost:8082
 
+server:
+  port: 8083
+
 spring:
   application:
     name: api-gateway
@@ -15,17 +18,57 @@ spring:
       server:
         webmvc:
           routes:
+
+            # Product API:
+            # Client calls:   /api/product/**
+            # Gateway forwards to: http://localhost:8080/api/product/**
             - id: product_service
               uri: ${services.product.base-url}
               predicates:
                 - Path=/api/product/**
 
+            # Product Swagger:
+            # Client calls:   /aggregate/product-service/v3/api-docs
+            # Gateway forwards to: http://localhost:8080/api-docs
+            - id: product_service_swagger
+              uri: ${services.product.base-url}
+              predicates:
+                - Path=/aggregate/product-service/v3/api-docs
+              filters:
+                - SetPath=/api-docs
+
+            # Order API:
+            # Client calls:   /api/order/**
+            # Gateway forwards to: http://localhost:8081/api/order/**
             - id: order_service
               uri: ${services.order.base-url}
               predicates:
                 - Path=/api/order/**
 
+            # Order Swagger:
+            # Client calls:   /aggregate/order-service/v3/api-docs
+            # Gateway forwards to: http://localhost:8081/api-docs
+            - id: order_service_swagger
+              uri: ${services.order.base-url}
+              predicates:
+                - Path=/aggregate/order-service/v3/api-docs
+              filters:
+                - SetPath=/api-docs
+
+            # Inventory API:
+            # Client calls:   /api/inventory/**
+            # Gateway forwards to: http://localhost:8082/api/inventory/**
             - id: inventory_service
               uri: ${services.inventory.base-url}
               predicates:
                 - Path=/api/inventory/**
+
+            # Inventory Swagger:
+            # Client calls:   /aggregate/inventory-service/v3/api-docs
+            # Gateway forwards to: http://localhost:8082/api-docs
+            - id: inventory_service_swagger
+              uri: ${services.inventory.base-url}
+              predicates:
+                - Path=/aggregate/inventory-service/v3/api-docs
+              filters:
+                - SetPath=/api-docs

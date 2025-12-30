@@ -34,6 +34,19 @@ public class GlobalResponseAdvice implements ResponseBodyAdvice<Object> {
                                   org.springframework.http.server.ServerHttpRequest request,
                                   org.springframework.http.server.ServerHttpResponse response) {
 
+
+        String path = ((ServletServerHttpRequest) request)
+                .getServletRequest().getRequestURI();
+
+        // ✅ Bypass Swagger / SpringDoc endpoints
+        if (path.startsWith("/v3/api-docs")
+                || path.startsWith("/swagger-ui")
+                || path.startsWith("/swagger-ui.html")
+                || path.startsWith("/api-docs")
+        ) {
+            return body;
+        }
+
         // Avoid double wrapping
         if (body instanceof ApiResponse || body instanceof ApiErrorResponse) {
             return body;
