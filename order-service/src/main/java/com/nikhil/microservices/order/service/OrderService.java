@@ -7,11 +7,12 @@ import com.nikhil.microservices.order.dto.OrderResponse;
 import com.nikhil.microservices.order.entities.Order;
 import com.nikhil.microservices.order.exceptions.OrderCreationException;
 import com.nikhil.microservices.order.repositories.OrderRepository;
-import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestClientResponseException;
 
 import java.util.UUID;
 
@@ -62,7 +63,12 @@ public class OrderService {
                     savedOrder.getQuantity()
             );
 
-        } catch (FeignException ex) {
+        } catch (RestClientResponseException ex) {
+            log.error("Inventory service returned error status: {} - {}",
+                    ex.getStatusCode(), ex.getResponseBodyAsString(), ex);
+            throw new OrderCreationException("Unable to verify inventory at this time", ex);
+
+        } catch (RestClientException ex) {
             log.error("Inventory service call failed", ex);
             throw new OrderCreationException("Unable to verify inventory at this time", ex);
 
@@ -71,4 +77,5 @@ public class OrderService {
             throw new OrderCreationException("Unable to create order at this time", ex);
         }
     }
+
 }
