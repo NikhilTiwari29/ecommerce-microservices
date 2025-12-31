@@ -19,6 +19,11 @@ spring:
         webmvc:
           routes:
 
+
+            # ===================================================================================================
+            # =============== Product Service Configuration ===============
+            # ===================================================================================================
+
             # Product API:
             # Client calls:   /api/product/**
             # Gateway forwards to: http://localhost:8080/api/product/**
@@ -26,6 +31,23 @@ spring:
               uri: ${services.product.base-url}
               predicates:
                 - Path=/api/product/**
+              filters:
+                # Circuit breaker for Product Service:
+                # - Monitors failures/timeouts when calling Product Service
+                # - Opens the circuit if the service becomes unhealthy
+                # - Forwards requests to /fallbackRoute when open
+                #
+                # We define this per service so each downstream dependency is isolated:
+                # a failure in Product Service does not affect Order or Inventory routing.
+                - name: CircuitBreaker
+                  args:
+                    name: productServiceCircuitBreaker
+                    fallbackUri: forward:/fallbackRoute
+
+            # -----------------------
+            # Product Swagger:
+            # -----------------------
+
 
             # Product Swagger:
             # Client calls:   /aggregate/product-service/v3/api-docs
@@ -37,6 +59,15 @@ spring:
               filters:
                 - SetPath=/api-docs
 
+
+            # ===================================================================================================
+            # =============== Order  Service Configuration ===============
+            # ===================================================================================================
+
+            # -----------------------
+            # Order API:
+            # -----------------------
+
             # Order API:
             # Client calls:   /api/order/**
             # Gateway forwards to: http://localhost:8081/api/order/**
@@ -44,6 +75,22 @@ spring:
               uri: ${services.order.base-url}
               predicates:
                 - Path=/api/order/**
+              filters:
+                # Circuit breaker for Order Service:
+                # - Monitors failures/timeouts when calling Order Service
+                # - Opens the circuit if the service becomes unhealthy
+                # - Forwards requests to /fallbackRoute when open
+                #
+                # Defined separately so Order Service failures do not cascade
+                # into Product or Inventory routing.
+                - name: CircuitBreaker
+                  args:
+                    name: orderServiceCircuitBreaker
+                    fallbackUri: forward:/fallbackRoute
+
+            # -----------------------
+            # Order Swagger:
+            # -----------------------
 
             # Order Swagger:
             # Client calls:   /aggregate/order-service/v3/api-docs
@@ -55,6 +102,15 @@ spring:
               filters:
                 - SetPath=/api-docs
 
+
+            # ===================================================================================================
+            # =============== Inventory   Service Configuration ===============
+            # ===================================================================================================
+
+            # -----------------------
+            # Inventory API:
+            # -----------------------
+
             # Inventory API:
             # Client calls:   /api/inventory/**
             # Gateway forwards to: http://localhost:8082/api/inventory/**
@@ -62,6 +118,22 @@ spring:
               uri: ${services.inventory.base-url}
               predicates:
                 - Path=/api/inventory/**
+              filters:
+                # Circuit breaker for Inventory Service:
+                # - Monitors failures/timeouts when calling Inventory Service
+                # - Opens the circuit if the service becomes unhealthy
+                # - Forwards requests to /fallbackRoute when open
+                #
+                # Kept separate so Inventory outages do not impact
+                # Product or Order availability.
+                - name: CircuitBreaker
+                  args:
+                    name: inventoryServiceCircuitBreaker
+                    fallbackUri: forward:/fallbackRoute
+
+            # -----------------------
+            # Inventory Swagger:
+            # -----------------------
 
             # Inventory Swagger:
             # Client calls:   /aggregate/inventory-service/v3/api-docs
@@ -72,3 +144,19 @@ spring:
                 - Path=/aggregate/inventory-service/v3/api-docs
               filters:
                 - SetPath=/api-docs
+
+            # ============================================================
+            # ===================== Fallback Handling ====================
+            # ============================================================
+
+            # Fallback Route:
+            # This route is used when any downstream service is unavailable or a circuit breaker is open.
+            # Requests are internally forwarded here and a 503 (Service Unavailable) status is returned.
+            - id: fallback_route
+              uri: no://op
+              predicates:
+                - Path=/fallbackRoute
+              filters:
+                - SetStatus=503
+                - AddResponseHeader=Content-Type,application/json
+                - AddResponseHeader=Fallback-Reason,ServiceUnavailable
