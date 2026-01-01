@@ -184,7 +184,7 @@ spring:
             # Requests are internally forwarded here and a 503 (Service Unavailable) status is returned.
 
             - id: fallback_route
-              uri: no://op   # "no://op" means "no operation,The gateway will NOT forward this request to any downstream service.This route exists only to generate a synthetic response inside the gateway.
+              uri: forward:/_fallback
               predicates:
                 - Path=/fallbackRoute
               filters:
