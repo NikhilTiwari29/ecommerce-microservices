@@ -39,9 +39,9 @@ spring:
                 #
                 # We define this per service so each downstream dependency is isolated:
                 # a failure in Product Service does not affect Order or Inventory routing.
-                - name: CircuitBreaker
+                - name: CircuitBreaker  # This tells Spring Cloud Gateway CircuitBreaker filter factory to apply.
                   args:
-                    name: productServiceCircuitBreaker
+                    id: productServiceCircuitBreaker  # Logical name of the Resilience4j circuit breaker instance
                     fallbackUri: forward:/fallbackRoute
 
             # -----------------------
@@ -58,6 +58,16 @@ spring:
                 - Path=/aggregate/product-service/v3/api-docs
               filters:
                 - SetPath=/api-docs
+                # Circuit breaker for Product Service swagger:
+                # - Monitors failures/timeouts when calling Product Service swagger
+                # - Opens the circuit if the service becomes unhealthy
+                # - Forwards requests to /fallbackRoute when open
+                #
+                # We define this per service so each downstream dependency is isolated:
+                - name: CircuitBreaker  # This tells Spring Cloud Gateway CircuitBreaker filter factory to apply.
+                  args:
+                    id: productServiceSwaggerCircuitBreaker  # Logical name of the Resilience4j circuit breaker instance
+                    fallbackUri: forward:/fallbackRoute
 
 
             # ===================================================================================================
@@ -83,9 +93,9 @@ spring:
                 #
                 # Defined separately so Order Service failures do not cascade
                 # into Product or Inventory routing.
-                - name: CircuitBreaker
+                - name: CircuitBreaker # This tells Spring Cloud Gateway CircuitBreaker filter factory to apply.
                   args:
-                    name: orderServiceCircuitBreaker
+                    id: orderServiceCircuitBreaker  # Logical name of the Resilience4j circuit breaker instance
                     fallbackUri: forward:/fallbackRoute
 
             # -----------------------
@@ -101,6 +111,16 @@ spring:
                 - Path=/aggregate/order-service/v3/api-docs
               filters:
                 - SetPath=/api-docs
+                # Circuit breaker for Order Service swagger:
+                # - Monitors failures/timeouts when calling Order Service swagger
+                # - Opens the circuit if the service becomes unhealthy
+                # - Forwards requests to /fallbackRoute when open
+                #
+                # We define this per service so each downstream dependency is isolated:
+                - name: CircuitBreaker  # This tells Spring Cloud Gateway CircuitBreaker filter factory to apply.
+                  args:
+                    id: orderServiceSwaggerCircuitBreaker  # Logical name of the Resilience4j circuit breaker instance
+                    fallbackUri: forward:/fallbackRoute
 
 
             # ===================================================================================================
@@ -126,9 +146,9 @@ spring:
                 #
                 # Kept separate so Inventory outages do not impact
                 # Product or Order availability.
-                - name: CircuitBreaker
+                - name: CircuitBreaker # This tells Spring Cloud Gateway CircuitBreaker filter factory to apply.
                   args:
-                    name: inventoryServiceCircuitBreaker
+                    id: inventoryServiceCircuitBreaker  # Logical name of the Resilience4j circuit breaker instance
                     fallbackUri: forward:/fallbackRoute
 
             # -----------------------
@@ -144,6 +164,16 @@ spring:
                 - Path=/aggregate/inventory-service/v3/api-docs
               filters:
                 - SetPath=/api-docs
+                # Circuit breaker for Inventory Service swagger:
+                # - Monitors failures/timeouts when calling Inventory Service
+                # - Opens the circuit if the service becomes unhealthy
+                # - Forwards requests to /fallbackRoute when open
+                #
+                # We define this per service so each downstream dependency is isolated:
+                - name: CircuitBreaker  # This tells Spring Cloud Gateway CircuitBreaker filter factory to apply.
+                  args:
+                    id: inventoryServiceSwaggerCircuitBreaker  # Logical name of the Resilience4j circuit breaker instance
+                    fallbackUri: forward:/fallbackRoute
 
             # ============================================================
             # ===================== Fallback Handling ====================
@@ -152,8 +182,9 @@ spring:
             # Fallback Route:
             # This route is used when any downstream service is unavailable or a circuit breaker is open.
             # Requests are internally forwarded here and a 503 (Service Unavailable) status is returned.
+
             - id: fallback_route
-              uri: no://op
+              uri: no://op   # "no://op" means "no operation,The gateway will NOT forward this request to any downstream service.This route exists only to generate a synthetic response inside the gateway.
               predicates:
                 - Path=/fallbackRoute
               filters:
