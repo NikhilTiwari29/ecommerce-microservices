@@ -1,5 +1,7 @@
 package com.nikhil.microservices.order.advices;
 
+import com.nikhil.microservices.order.exceptions.InsufficientInventoryException;
+import com.nikhil.microservices.order.exceptions.InventoryUnavailableException;
 import com.nikhil.microservices.order.exceptions.OrderCreationException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -79,4 +81,28 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(errorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error", request.getRequestURI(), error));
     }
+
+    @ExceptionHandler(InventoryUnavailableException.class)
+    public ResponseEntity<ApiResponse<Void>> handleInventoryUnavailable(
+            InventoryUnavailableException ex,
+            HttpServletRequest request) {
+
+        ApiErrorResponse error = new ApiErrorResponse(ex.getMessage(), null);
+
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body(errorResponse(HttpStatus.SERVICE_UNAVAILABLE, ex.getMessage(), request.getRequestURI(), error));
+    }
+
+    @ExceptionHandler(InsufficientInventoryException.class)
+    public ResponseEntity<ApiResponse<Void>> handleInsufficientInventory(
+            InsufficientInventoryException ex,
+            HttpServletRequest request) {
+
+        ApiErrorResponse error = new ApiErrorResponse(ex.getMessage(), null);
+
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(errorResponse(HttpStatus.CONFLICT, ex.getMessage(), request.getRequestURI(), error));
+    }
+
+
 }

@@ -5,14 +5,14 @@ import com.nikhil.microservices.order.client.InventoryClient;
 import com.nikhil.microservices.order.dto.OrderRequest;
 import com.nikhil.microservices.order.dto.OrderResponse;
 import com.nikhil.microservices.order.entities.Order;
+import com.nikhil.microservices.order.exceptions.InsufficientInventoryException;
+import com.nikhil.microservices.order.exceptions.InventoryUnavailableException;
 import com.nikhil.microservices.order.exceptions.OrderCreationException;
 import com.nikhil.microservices.order.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestClientResponseException;
 
 import java.util.UUID;
 
@@ -26,24 +26,33 @@ public class OrderService {
 
     public OrderResponse placeOrder(OrderRequest orderRequest) {
 
-        try {
-            log.info("Placing order for SKU={} with quantity={}",
-                    orderRequest.skuCode(), orderRequest.quantity());
+        log.info("Placing order for SKU={} with quantity={}",
+                orderRequest.skuCode(), orderRequest.quantity());
 
-            ApiResponse<Boolean> response = inventoryClient.isInStock(
+        ApiResponse<Boolean> response;
+        try {
+            response = inventoryClient.isInStock(
                     orderRequest.skuCode(),
                     orderRequest.quantity()
             );
+        } catch (Exception ex) {
+            log.error("Inventory call failed hard", ex);
+            throw new InventoryUnavailableException("Inventory service unavailable", ex);
+        }
 
-            Boolean inStock = response.data();
+        if (response == null || response.data() == null) {
+            log.warn("Inventory unavailable for SKU={}", orderRequest.skuCode());
+            throw new InventoryUnavailableException("Inventory service unavailable");
+        }
 
-            if (!inStock) {
-                log.warn("Insufficient inventory for SKU={}", orderRequest.skuCode());
-                throw new OrderCreationException(
-                        "Product with sku code " + orderRequest.skuCode() + " is not in stock"
-                );
-            }
+        if (!response.data()) {
+            log.warn("Insufficient inventory for SKU={}", orderRequest.skuCode());
+            throw new InsufficientInventoryException(
+                    "Product with sku code " + orderRequest.skuCode() + " is not in stock"
+            );
+        }
 
+        try {
             Order order = new Order(
                     UUID.randomUUID().toString(),
                     orderRequest.skuCode(),
@@ -63,19 +72,9 @@ public class OrderService {
                     savedOrder.getQuantity()
             );
 
-        } catch (RestClientResponseException ex) {
-            log.error("Inventory service returned error status: {} - {}",
-                    ex.getStatusCode(), ex.getResponseBodyAsString(), ex);
-            throw new OrderCreationException("Unable to verify inventory at this time", ex);
-
-        } catch (RestClientException ex) {
-            log.error("Inventory service call failed", ex);
-            throw new OrderCreationException("Unable to verify inventory at this time", ex);
-
         } catch (DataAccessException ex) {
             log.error("Database error while creating order", ex);
             throw new OrderCreationException("Unable to create order at this time", ex);
         }
     }
-
 }
