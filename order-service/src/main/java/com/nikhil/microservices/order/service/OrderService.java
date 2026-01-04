@@ -5,6 +5,7 @@ import com.nikhil.microservices.order.client.InventoryClient;
 import com.nikhil.microservices.order.dto.OrderRequest;
 import com.nikhil.microservices.order.dto.OrderResponse;
 import com.nikhil.microservices.order.entities.Order;
+import com.nikhil.microservices.order.event.OrderPlacedEvent;
 import com.nikhil.microservices.order.exceptions.InsufficientInventoryException;
 import com.nikhil.microservices.order.exceptions.InventoryUnavailableException;
 import com.nikhil.microservices.order.exceptions.OrderCreationException;
@@ -12,6 +13,7 @@ import com.nikhil.microservices.order.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -23,6 +25,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final InventoryClient inventoryClient;
+    private final KafkaTemplate<String, OrderPlacedEvent> kafkaTemplate;
 
     public OrderResponse placeOrder(OrderRequest orderRequest) {
 
@@ -64,6 +67,22 @@ public class OrderService {
 
             log.info("Order created successfully with id={}", savedOrder.getId());
 
+            OrderPlacedEvent orderPlacedEvent = new OrderPlacedEvent(order.getOrderNumber(), orderRequest.userDetails().email());
+
+            log.info("Start - Sending OrderPlacedEvent {}", orderPlacedEvent);
+
+            kafkaTemplate.send("order-placed", order.getOrderNumber(), orderPlacedEvent)
+                    .whenComplete((result, ex) -> {
+                        if (ex != null) {
+                            log.error("Failed to send OrderPlacedEvent {}", orderPlacedEvent, ex);
+                        } else {
+                            log.info("Successfully sent OrderPlacedEvent {} to partition {} offset {}",
+                                    orderPlacedEvent,
+                                    result.getRecordMetadata().partition(),
+                                    result.getRecordMetadata().offset());
+                        }
+                    });
+
             return new OrderResponse(
                     savedOrder.getId(),
                     savedOrder.getOrderNumber(),
@@ -71,6 +90,7 @@ public class OrderService {
                     savedOrder.getPrice(),
                     savedOrder.getQuantity()
             );
+
 
         } catch (DataAccessException ex) {
             log.error("Database error while creating order", ex);
