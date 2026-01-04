@@ -67,7 +67,12 @@ public class OrderService {
 
             log.info("Order created successfully with id={}", savedOrder.getId());
 
-            OrderPlacedEvent orderPlacedEvent = new OrderPlacedEvent(order.getOrderNumber(), orderRequest.userDetails().email());
+            OrderPlacedEvent orderPlacedEvent = new OrderPlacedEvent(
+                    order.getOrderNumber(),
+                    orderRequest.userDetails().email(),
+                    orderRequest.userDetails().firstName(),
+                    orderRequest.userDetails().lastName()
+            );
 
             log.info("Start - Sending OrderPlacedEvent {}", orderPlacedEvent);
 
