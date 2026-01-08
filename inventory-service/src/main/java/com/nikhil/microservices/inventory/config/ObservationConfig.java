@@ -1,4 +1,4 @@
-package com.nikhil.microservices.config;
+package com.nikhil.microservices.inventory.config;
 
 import io.micrometer.observation.ObservationRegistry;
 import io.micrometer.observation.aop.ObservedAspect;

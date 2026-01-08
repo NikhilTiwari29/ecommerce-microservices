@@ -36,7 +36,7 @@ class OrderServiceTest {
     @Test
     void shouldCreateOrder_whenInventoryIsAvailable() {
 
-        OrderRequest request = new OrderRequest("1","iphone_15", BigDecimal.valueOf(100), 2);
+        OrderRequest request = new OrderRequest(1L,"1234","iphone_15", BigDecimal.valueOf(100), 2,null);
 
         when(inventoryClient.isInStock("iphone_15", 2))
                 .thenReturn(new ApiResponse<>(null, 200, "/api/inventory", true, null));
@@ -54,7 +54,7 @@ class OrderServiceTest {
     @Test
     void shouldThrowException_whenInventoryIsNotAvailable() {
 
-        OrderRequest request = new OrderRequest("1","iphone_15", BigDecimal.valueOf(999), 10);
+        OrderRequest request = new OrderRequest(1L,"1234","iphone_15", BigDecimal.valueOf(100), 2,null);
 
         when(inventoryClient.isInStock("iphone_15", 10))
                 .thenReturn(new ApiResponse<>(null, 200, "/api/inventory", false, null));
@@ -69,7 +69,7 @@ class OrderServiceTest {
 //    @Test
 //    void shouldThrowException_whenInventoryServiceFails() {
 //
-//        OrderRequest request = new OrderRequest("1","iphone_15", BigDecimal.valueOf(999), 2);
+//         OrderRequest request = new OrderRequest(1L,"1234","iphone_15", BigDecimal.valueOf(100), 2,null);
 //
 //        Request feignRequest = Request.create(
 //                Request.HttpMethod.GET,
@@ -95,7 +95,7 @@ class OrderServiceTest {
     @Test
     void shouldThrowException_whenDatabaseFails() {
 
-        OrderRequest request = new OrderRequest("1","iphone_15", BigDecimal.valueOf(999), 2);
+        OrderRequest request = new OrderRequest(1L,"1234","iphone_15", BigDecimal.valueOf(100), 2,null);
 
         when(inventoryClient.isInStock("iphone_15", 2))
                 .thenReturn(new ApiResponse<>(null, 200, "/api/inventory", true, null));

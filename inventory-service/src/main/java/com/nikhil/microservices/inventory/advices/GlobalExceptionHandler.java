@@ -62,6 +62,11 @@ public class GlobalExceptionHandler {
             RuntimeException ex,
             HttpServletRequest request) {
 
+        // 🔹 Do NOT intercept actuator errors
+        if (request.getRequestURI().startsWith("/actuator")) {
+            throw ex;
+        }
+
         ApiErrorResponse error = new ApiErrorResponse("Internal server error", null);
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
