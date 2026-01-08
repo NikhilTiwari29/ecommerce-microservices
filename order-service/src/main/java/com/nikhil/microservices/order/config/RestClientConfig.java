@@ -1,6 +1,7 @@
 package com.nikhil.microservices.order.config;
 
 import com.nikhil.microservices.order.client.InventoryClient;
+import io.micrometer.observation.ObservationRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -20,30 +21,30 @@ public class RestClientConfig {
 
     @Value("${inventory.service.url}")
     private String inventoryServiceUrl;
+    private final ObservationRegistry observationRegistry;
 
     @Bean
     public InventoryClient inventoryClient() {
         RestClient restClient = RestClient.builder()
                 .baseUrl(inventoryServiceUrl)
-                .requestFactory(clientHttpRequestFactory())
+                .requestFactory(getClientRequestFactory())
+                .observationRegistry(observationRegistry)
                 .build();
-
-        RestClientAdapter adapter = RestClientAdapter.create(restClient);
-        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter).build();
-
-        return factory.createClient(InventoryClient.class);
+        var restClientAdapter = RestClientAdapter.create(restClient);
+        var httpServiceProxyFactory = HttpServiceProxyFactory.builderFor(restClientAdapter).build();
+        return httpServiceProxyFactory.createClient(InventoryClient.class);
     }
 
-    @Bean
-    public ClientHttpRequestFactory clientHttpRequestFactory() {
-
+    private ClientHttpRequestFactory getClientRequestFactory() {
         HttpClient httpClient = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(3))
                 .build();
 
         JdkClientHttpRequestFactory factory = new JdkClientHttpRequestFactory(httpClient);
         factory.setReadTimeout(Duration.ofSeconds(3));
+        factory.enableCompression(true);
 
         return factory;
     }
+
 }
