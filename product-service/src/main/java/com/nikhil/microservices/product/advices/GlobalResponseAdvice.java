@@ -43,9 +43,14 @@ public class GlobalResponseAdvice implements ResponseBodyAdvice<Object> {
                 || path.startsWith("/v3/api-docs")
                 || path.startsWith("/swagger-ui")
                 || path.startsWith("/swagger-ui.html")
-                || path.startsWith("/api-docs")) {
+                || path.startsWith("/api-docs")
+                || path.startsWith("/prometheus")
+                || path.startsWith("/metrics")
+                || path.startsWith("/tempo")
+                || path.startsWith("/loki")) {
             return body;
         }
+
 
         // Avoid double wrapping
         if (body instanceof ApiResponse || body instanceof ApiErrorResponse) {
