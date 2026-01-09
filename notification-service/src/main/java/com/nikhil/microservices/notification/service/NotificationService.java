@@ -1,5 +1,6 @@
 package com.nikhil.microservices.notification.service;
 
+import com.nikhil.microservices.product.order.event.OrderPlacedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -17,7 +18,7 @@ public class NotificationService {
     private final JavaMailSender javaMailSender;
 
     @KafkaListener(topics = "order-placed")
-    public void listen(com.nikhil.microservices.order.event.OrderPlacedEvent orderPlacedEvent){
+    public void listen(OrderPlacedEvent orderPlacedEvent){
         log.info("Got Message from order-placed topic {}", orderPlacedEvent);
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);

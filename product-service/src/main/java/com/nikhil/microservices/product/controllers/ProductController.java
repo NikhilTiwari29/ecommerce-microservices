@@ -2,7 +2,6 @@ package com.nikhil.microservices.product.controllers;
 
 import com.nikhil.microservices.product.dto.ProductRequest;
 import com.nikhil.microservices.product.dto.ProductResponse;
-import com.nikhil.microservices.product.entities.Product;
 import com.nikhil.microservices.product.services.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
