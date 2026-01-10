@@ -4,6 +4,7 @@ import com.nikhil.microservices.product.dto.ProductRequest;
 import com.nikhil.microservices.product.dto.ProductResponse;
 import com.nikhil.microservices.product.entities.Product;
 import com.nikhil.microservices.product.exceptions.ProductCreationException;
+import com.nikhil.microservices.product.exceptions.ProductFetchException;
 import com.nikhil.microservices.product.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -60,7 +61,7 @@ public class ProductService {
 
         } catch (DataAccessException ex) {
             log.error("Database error while fetching products", ex);
-            throw new RuntimeException("Unable to fetch products at this time");
+            throw new ProductFetchException("Unable to fetch products at this time", ex);
         }
     }
 }
