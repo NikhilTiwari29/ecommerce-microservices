@@ -2,10 +2,10 @@ version: "4"
 
 services:
   mysql:
-    image: mysql:8.0.36
+    image: mysql:latest
     container_name: mysql-order-service
     environment:
-      MYSQL_ROOT_PASSWORD: NikTiwari@1234
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - "3307:3306"
     volumes:
