@@ -5,6 +5,7 @@ target/
 !**/src/test/**/target/
 
 /data/
+../.idea
 
 ### STS ###
 .apt_generated
