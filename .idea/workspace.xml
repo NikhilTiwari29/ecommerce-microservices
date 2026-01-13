@@ -5,13 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d6c959d-25b4-4ceb-9e71-715e18cb8cb3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/nikhil/microservices/order/client/InventoryClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/test/java/com/nikhil/microservices/order/integrationTest/stubs/InventoryClientStub.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/test/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/nikhil/microservices/order/OrderServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/nikhil/microservices/order/OrderServiceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/nikhil/microservices/order/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/nikhil/microservices/order/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/src/test/java/com/nikhil/microservices/order/integrationTest/OrderIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/test/java/com/nikhil/microservices/order/integrationTest/OrderIntegrationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-gateway/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/java/com/nikhil/microservices/api_gateway/controller/GatewayFallbackController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/java/com/nikhil/microservices/api_gateway/routes/Routes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +72,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.ApiGatewayApplication.executor": "Run",
     "Spring Boot.InventoryServiceApplication.executor": "Run",
     "Spring Boot.OrderServiceApplication.executor": "Run",
     "Spring Boot.ProductServiceApplication.executor": "Run",
@@ -80,7 +83,7 @@
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/nikhil/ecommerce-microservices/order-service/src/test",
+    "last_opened_file_path": "C:/nikhil/ecommerce-microservices/api-gateway",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -96,11 +99,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\nikhil\ecommerce-microservices\api-gateway" />
+      <recent name="C:\nikhil\ecommerce-microservices\api-gateway\src\main\java\com\nikhil\microservices\api_gateway" />
+      <recent name="C:\nikhil\ecommerce-microservices" />
+      <recent name="C:\nikhil\ecommerce-microservices\api-gateway\src\main\resources" />
       <recent name="C:\nikhil\ecommerce-microservices\order-service\src\test" />
-      <recent name="C:\nikhil\ecommerce-microservices\order-service\src\test\java\com\nikhil\microservices\order\integrationTest" />
-      <recent name="C:\nikhil\ecommerce-microservices\order-service\src\main\java\com\nikhil\microservices\order" />
-      <recent name="C:\nikhil\ecommerce-microservices\inventory-service\src\test\java\com\nikhil\microservices\inventory" />
-      <recent name="C:\nikhil\ecommerce-microservices\inventory-service\src\main\java\com\nikhil\microservices\inventory_service" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\nikhil\ecommerce-microservices\order-service\docker" />
@@ -123,8 +126,9 @@
         <entry key="SpringBootApplicationConfigurationType">
           <value>
             <map>
+              <entry key="ApiGatewayApplication" value="STOPPED" />
               <entry key="InventoryServiceApplication" value="STOPPED" />
-              <entry key="OrderServiceApplication" value="FAILED" />
+              <entry key="OrderServiceApplication" value="STOPPED" />
               <entry key="ProductServiceApplication" value="STOPPED" />
             </map>
           </value>
@@ -132,7 +136,7 @@
       </map>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.OrderIntegrationTest">
+  <component name="RunManager" selected="Spring Boot.ApiGatewayApplication">
     <configuration name="InventoryControllerIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="inventory-service" />
       <extension name="coverage">
@@ -194,6 +198,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ApiGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="api-gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.nikhil.microservices.api_gateway.ApiGatewayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="InventoryServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="inventory-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.nikhil.microservices.inventory.InventoryServiceApplication" />
@@ -240,7 +251,7 @@
       <option name="presentableId" value="Default" />
       <updated>1768238434574</updated>
       <workItem from="1768238437203" duration="8126000" />
-      <workItem from="1768314655514" duration="4151000" />
+      <workItem from="1768314655514" duration="5725000" />
     </task>
     <servers />
   </component>
