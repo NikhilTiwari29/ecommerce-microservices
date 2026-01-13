@@ -1,8 +1,12 @@
 package com.nikhil.microservices.order.service;
 
+import com.nikhil.microservices.order.advices.ApiResponse;
+import com.nikhil.microservices.order.client.InventoryClient;
 import com.nikhil.microservices.order.dto.OrderRequest;
 import com.nikhil.microservices.order.dto.OrderResponse;
 import com.nikhil.microservices.order.entities.Order;
+import com.nikhil.microservices.order.exceptions.InsufficientInventoryException;
+import com.nikhil.microservices.order.exceptions.InventoryUnavailableException;
 import com.nikhil.microservices.order.exceptions.OrderCreationException;
 import com.nikhil.microservices.order.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +22,35 @@ import java.util.UUID;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final InventoryClient inventoryClient;
 
     public OrderResponse placeOrder(OrderRequest orderRequest) {
 
         log.info("Placing order for SKU={} with quantity={}",
                 orderRequest.skuCode(), orderRequest.quantity());
+
+        ApiResponse<Boolean> response;
+        try {
+            response = inventoryClient.isInStock(
+                    orderRequest.skuCode(),
+                    orderRequest.quantity()
+            );
+        } catch (Exception ex) {
+            log.error("Inventory call failed hard", ex);
+            throw new InventoryUnavailableException("Inventory service unavailable", ex);
+        }
+
+        if (response == null || response.data() == null) {
+            log.warn("Inventory unavailable for SKU={}", orderRequest.skuCode());
+            throw new InventoryUnavailableException("Inventory service unavailable");
+        }
+
+        if (!response.data()) {
+            log.warn("Insufficient inventory for SKU={}", orderRequest.skuCode());
+            throw new InsufficientInventoryException(
+                    "Product with sku code " + orderRequest.skuCode() + " is not in stock"
+            );
+        }
 
         try {
             Order order = new Order(

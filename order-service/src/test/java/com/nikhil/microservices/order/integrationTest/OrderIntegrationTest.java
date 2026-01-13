@@ -1,6 +1,7 @@
 package com.nikhil.microservices.order.integrationTest;
 
 import com.nikhil.microservices.order.integrationTest.configs.IntegrationTestConfiguration;
+import com.nikhil.microservices.order.integrationTest.stubs.InventoryClientStub;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
@@ -22,6 +23,8 @@ public class OrderIntegrationTest extends IntegrationTestConfiguration {
                       "quantity" : 10
                   }
                 """;
+
+        InventoryClientStub.stubInventoryCall("iphone 15",10);
 
         RestAssured.given()
                 .contentType(ContentType.JSON)
