@@ -7,7 +7,13 @@
     <list default="true" id="1d6c959d-25b4-4ceb-9e71-715e18cb8cb3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/nikhil/microservices/api_gateway/routes/Routes.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/java/com/nikhil/microservices/api_gateway/routes/Routes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -78,7 +84,7 @@
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/nikhil/ecommerce-microservices",
+    "last_opened_file_path": "C:/nikhil/ecommerce-microservices/inventory-service/src/main/java/com/nikhil/microservices/inventory",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -94,11 +100,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\nikhil\ecommerce-microservices\inventory-service\src\main\java\com\nikhil\microservices\inventory" />
+      <recent name="C:\nikhil\ecommerce-microservices\order-service\src\main\java\com\nikhil\microservices\order" />
+      <recent name="C:\nikhil\ecommerce-microservices\product-service\src\main\java\com\nikhil\microservices\product" />
       <recent name="C:\nikhil\ecommerce-microservices\api-gateway" />
       <recent name="C:\nikhil\ecommerce-microservices\api-gateway\src\main\java\com\nikhil\microservices\api_gateway" />
-      <recent name="C:\nikhil\ecommerce-microservices" />
-      <recent name="C:\nikhil\ecommerce-microservices\api-gateway\src\main\resources" />
-      <recent name="C:\nikhil\ecommerce-microservices\order-service\src\test" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\nikhil\ecommerce-microservices\order-service\docker" />
@@ -123,7 +129,7 @@
             <map>
               <entry key="ApiGatewayApplication" value="STOPPED" />
               <entry key="InventoryServiceApplication" value="STOPPED" />
-              <entry key="OrderServiceApplication" value="STOPPED" />
+              <entry key="OrderServiceApplication" value="FAILED" />
               <entry key="ProductServiceApplication" value="STOPPED" />
             </map>
           </value>
@@ -250,6 +256,8 @@
       <workItem from="1768412266025" duration="76000" />
       <workItem from="1768412349065" duration="36000" />
       <workItem from="1768412417053" duration="1028000" />
+      <workItem from="1768495495530" duration="75000" />
+      <workItem from="1768591905188" duration="2322000" />
     </task>
     <servers />
   </component>
