@@ -3,6 +3,8 @@ package com.nikhil.microservices.order.client;
 import com.nikhil.microservices.order.advices.ApiErrorResponse;
 import com.nikhil.microservices.order.advices.ApiResponse;
 import groovy.util.logging.Slf4j;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +30,8 @@ public interface InventoryClient {
     Logger log = LoggerFactory.getLogger(InventoryClient.class);
 
     @GetExchange("/api/inventory")
+    @CircuitBreaker(name = "inventory", fallbackMethod = "fallbackMethod")
+    @Retry(name = "inventory")
     ApiResponse<Boolean> isInStock(@RequestParam String skuCode,
                                    @RequestParam Integer quantity);
 
