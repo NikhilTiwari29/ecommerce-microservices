@@ -5,20 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d6c959d-25b4-4ceb-9e71-715e18cb8cb3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/notification-service/src/main/java/com/nikhil/microservices/notification/service/NotificationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notification-service/src/main/java/com/nikhil/microservices/order/events/OrderPlacedEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/nikhil/microservices/order/events/OrderPlacedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/java/com/nikhil/microservices/api_gateway/config/ObservationConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/logback-spring.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory-service/src/main/java/com/nikhil/microservices/inventory/config/ObservationConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory-service/src/main/resources/logback-spring.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notification-service/src/main/java/com/nikhil/microservices/notification/config/ObservationConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notification-service/src/main/resources/logback-spring.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/nikhil/microservices/order/config/ObservationConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/resources/logback-spring.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-service/src/main/java/com/nikhil/microservices/product/config/ObservationConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product-service/src/main/resources/logback-spring.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/java/com/nikhil/microservices/inventory/advices/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/java/com/nikhil/microservices/inventory/advices/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notification-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/order-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/nikhil/microservices/order/advices/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/nikhil/microservices/order/advices/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/nikhil/microservices/order/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/nikhil/microservices/order/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/nikhil/microservices/product/advices/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/nikhil/microservices/product/advices/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/nikhil/microservices/order/config/RestClientConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/nikhil/microservices/order/config/RestClientConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +72,7 @@
     "JUnit.OrderIntegrationTest.executor": "Run",
     "JUnit.OrderIntegrationTest.shouldCreateOrder.executor": "Debug",
     "JUnit.ProductIntegrationTest.executor": "Run",
+    "KUBERNETES_SUPPRESS_CONFIG_CLUSTER_SUGGESTION": "true",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
@@ -89,7 +96,7 @@
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/nikhil/ecommerce-microservices/notification-service/src/main/java/com/nikhil/microservices/notification",
+    "last_opened_file_path": "C:/nikhil/ecommerce-microservices/api-gateway/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -105,18 +112,21 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\nikhil\ecommerce-microservices\notification-service\src\main\java\com\nikhil\microservices\notification" />
-      <recent name="C:\nikhil\ecommerce-microservices" />
-      <recent name="C:\nikhil\ecommerce-microservices\order-service\src\main\java\com\nikhil\microservices\order" />
-      <recent name="C:\nikhil\ecommerce-microservices\inventory-service\src\main\java\com\nikhil\microservices\inventory" />
-      <recent name="C:\nikhil\ecommerce-microservices\product-service\src\main\java\com\nikhil\microservices\product" />
+      <recent name="C:\nikhil\ecommerce-microservices\api-gateway\src\main\resources" />
+      <recent name="C:\nikhil\ecommerce-microservices\inventory-service\src\main\resources" />
+      <recent name="C:\nikhil\ecommerce-microservices\notification-service\src\main\resources" />
+      <recent name="C:\nikhil\ecommerce-microservices\order-service\src\main\resources" />
+      <recent name="C:\nikhil\ecommerce-microservices\product-service\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\nikhil\ecommerce-microservices\order-service\docker" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.nikhil.microservices.api_gateway.config" />
+      <recent name="com.nikhil.microservices.inventory.config" />
+      <recent name="com.nikhil.microservices.notification.config" />
       <recent name="com.nikhil.microservices.order.config" />
-      <recent name="com.nikhil.microservices.product.integration" />
+      <recent name="com.nikhil.microservices.product.config" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -273,7 +283,8 @@
       <workItem from="1768495495530" duration="75000" />
       <workItem from="1768591905188" duration="3285000" />
       <workItem from="1768595292984" duration="21000" />
-      <workItem from="1768643674219" duration="10915000" />
+      <workItem from="1768643674219" duration="11234000" />
+      <workItem from="1768674854024" duration="6415000" />
     </task>
     <servers />
   </component>
