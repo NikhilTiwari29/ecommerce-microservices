@@ -1,6 +1,7 @@
 package com.nikhil.microservices.inventory.advices;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -13,6 +14,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -20,7 +22,15 @@ public class GlobalExceptionHandler {
             DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm:ss z")
                     .withZone(ZoneId.of("Asia/Kolkata"));
 
-    private ApiResponse<Void> errorResponse(HttpStatus status, String message, String path, ApiErrorResponse error) {
+    /* -------------------------------------------------------
+       Common error response builder
+       ------------------------------------------------------- */
+    private ApiResponse<Void> errorResponse(
+            HttpStatus status,
+            String message,
+            String path,
+            ApiErrorResponse error) {
+
         return new ApiResponse<>(
                 FORMATTER.format(Instant.now()),
                 status.value(),
@@ -30,46 +40,98 @@ public class GlobalExceptionHandler {
         );
     }
 
+    /* -------------------------------------------------------
+       Validation Errors (400)
+       ------------------------------------------------------- */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<Void>> handleValidationException(
             MethodArgumentNotValidException ex,
             HttpServletRequest request) {
 
         List<ApiErrorResponse.FieldError> fieldErrors =
-                ex.getBindingResult().getFieldErrors().stream()
-                        .map(err -> new ApiErrorResponse.FieldError(err.getField(), err.getDefaultMessage()))
+                ex.getBindingResult()
+                        .getFieldErrors()
+                        .stream()
+                        .map(err -> new ApiErrorResponse.FieldError(
+                                err.getField(),
+                                err.getDefaultMessage()
+                        ))
                         .toList();
 
-        ApiErrorResponse error = new ApiErrorResponse("Validation failed", fieldErrors);
+        log.warn(
+                "Validation failed | path={} | errors={}",
+                request.getRequestURI(),
+                fieldErrors
+        );
+
+        ApiErrorResponse error =
+                new ApiErrorResponse("Validation failed", fieldErrors);
 
         return ResponseEntity.badRequest()
-                .body(errorResponse(HttpStatus.BAD_REQUEST, "Validation failed", request.getRequestURI(), error));
+                .body(errorResponse(
+                        HttpStatus.BAD_REQUEST,
+                        "Validation failed",
+                        request.getRequestURI(),
+                        error
+                ));
     }
 
+    /* -------------------------------------------------------
+       Malformed JSON (400)
+       ------------------------------------------------------- */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiResponse<Void>> handleMalformedJson(
             HttpMessageNotReadableException ex,
             HttpServletRequest request) {
 
-        ApiErrorResponse error = new ApiErrorResponse("Malformed JSON request", null);
+        log.warn(
+                "Malformed JSON request | path={}",
+                request.getRequestURI()
+        );
+
+        ApiErrorResponse error =
+                new ApiErrorResponse("Malformed JSON request", null);
 
         return ResponseEntity.badRequest()
-                .body(errorResponse(HttpStatus.BAD_REQUEST, "Malformed JSON request", request.getRequestURI(), error));
+                .body(errorResponse(
+                        HttpStatus.BAD_REQUEST,
+                        "Malformed JSON request",
+                        request.getRequestURI(),
+                        error
+                ));
     }
 
+    /* -------------------------------------------------------
+       Fallback – Unexpected System Errors (500)
+       ------------------------------------------------------- */
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ApiResponse<Void>> handleGenericException(
             RuntimeException ex,
             HttpServletRequest request) {
 
-        // 🔹 Do NOT intercept actuator errors
+        // Do not interfere with actuator endpoints
         if (request.getRequestURI().startsWith("/actuator")) {
             throw ex;
         }
 
-        ApiErrorResponse error = new ApiErrorResponse("Internal server error", null);
+        // 🔴 Full stack trace for logs
+        log.error(
+                "Unhandled exception | path={} | method={}",
+                request.getRequestURI(),
+                request.getMethod(),
+                ex
+        );
+
+        // 🟢 Safe response for client
+        ApiErrorResponse error =
+                new ApiErrorResponse("Internal server error", null);
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(errorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error", request.getRequestURI(), error));
+                .body(errorResponse(
+                        HttpStatus.INTERNAL_SERVER_ERROR,
+                        "Something went wrong. Please try again later.",
+                        request.getRequestURI(),
+                        error
+                ));
     }
 }
