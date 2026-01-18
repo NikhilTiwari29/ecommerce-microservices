@@ -4,7 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-.idea
+.idea/
+*.iml
 
 ### STS ###
 .apt_generated
