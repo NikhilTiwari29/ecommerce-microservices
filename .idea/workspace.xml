@@ -5,26 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d6c959d-25b4-4ceb-9e71-715e18cb8cb3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/java/com/nikhil/microservices/api_gateway/config/ObservationConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/logback-spring.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory-service/src/main/java/com/nikhil/microservices/inventory/config/ObservationConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory-service/src/main/resources/logback-spring.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notification-service/src/main/java/com/nikhil/microservices/notification/config/ObservationConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notification-service/src/main/resources/logback-spring.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/nikhil/microservices/order/config/ObservationConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/resources/logback-spring.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-service/src/main/java/com/nikhil/microservices/product/config/ObservationConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-service/src/main/resources/logback-spring.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-gateway/docker/keycloak/realms/realm-export.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inventory-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/notification-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/order-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/nikhil/microservices/order/config/RestClientConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/nikhil/microservices/order/config/RestClientConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +47,9 @@
     <commands />
     <urls />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 4
@@ -73,6 +67,8 @@
     "JUnit.OrderIntegrationTest.shouldCreateOrder.executor": "Debug",
     "JUnit.ProductIntegrationTest.executor": "Run",
     "KUBERNETES_SUPPRESS_CONFIG_CLUSTER_SUGGESTION": "true",
+    "Maven.Build & Push Docker Images.executor": "Run",
+    "Maven.spring-boot-3-microservices [org.springframework.boot:spring-boot-maven-plugin:3.5.9:build-image].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
@@ -96,7 +92,7 @@
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/nikhil/ecommerce-microservices/api-gateway/src/main/resources",
+    "last_opened_file_path": "C:/nikhil/ecommerce-microservices/api-gateway/docker/keycloak/realms",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -112,11 +108,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\nikhil\ecommerce-microservices\api-gateway\docker\keycloak\realms" />
       <recent name="C:\nikhil\ecommerce-microservices\api-gateway\src\main\resources" />
       <recent name="C:\nikhil\ecommerce-microservices\inventory-service\src\main\resources" />
       <recent name="C:\nikhil\ecommerce-microservices\notification-service\src\main\resources" />
       <recent name="C:\nikhil\ecommerce-microservices\order-service\src\main\resources" />
-      <recent name="C:\nikhil\ecommerce-microservices\product-service\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\nikhil\ecommerce-microservices\order-service\docker" />
@@ -154,7 +150,7 @@
       </map>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.NotificationServiceApplication">
+  <component name="RunManager" selected="Maven.Build &amp; Push Docker Images">
     <configuration name="InventoryControllerIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="inventory-service" />
       <extension name="coverage">
@@ -165,6 +161,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.nikhil.microservices.inventory.integration" />
       <option name="MAIN_CLASS_NAME" value="com.nikhil.microservices.inventory.integration.InventoryControllerIT" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -216,6 +213,52 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Build &amp; Push Docker Images" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map>
+                <entry key="DOCKER_PASSWORD" value="dckr_pat_AQJv4B9F-gR1VjqzoKENI0UYECA" />
+              </map>
+            </option>
+            <option name="jreName" value="#USE_PROJECT_JDK" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="" />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="spring-boot:build-image" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
     <configuration name="ApiGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="api-gateway" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.nikhil.microservices.api_gateway.ApiGatewayApplication" />
@@ -251,6 +294,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="JUnit.InventoryControllerIT" />
+      <item itemvalue="JUnit.OrderIntegrationTest" />
+      <item itemvalue="JUnit.OrderIntegrationTest.shouldCreateOrder" />
+      <item itemvalue="JUnit.ProductIntegrationTest" />
+      <item itemvalue="Maven.Build &amp; Push Docker Images" />
+      <item itemvalue="Spring Boot.ApiGatewayApplication" />
+      <item itemvalue="Spring Boot.InventoryServiceApplication" />
+      <item itemvalue="Spring Boot.NotificationServiceApplication" />
+      <item itemvalue="Spring Boot.OrderServiceApplication" />
+      <item itemvalue="Spring Boot.ProductServiceApplication" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.OrderIntegrationTest" />
@@ -284,7 +339,8 @@
       <workItem from="1768591905188" duration="3285000" />
       <workItem from="1768595292984" duration="21000" />
       <workItem from="1768643674219" duration="11234000" />
-      <workItem from="1768674854024" duration="6415000" />
+      <workItem from="1768674854024" duration="6579000" />
+      <workItem from="1768744333856" duration="3870000" />
     </task>
     <servers />
   </component>
