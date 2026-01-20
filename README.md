@@ -1,6 +1,6 @@
 # Ecommerce Microservices Backend
 
-A production-style **Spring Boot microservices backend** for an ecommerce platform.
+A production-style **Spring Boot microservices backend** for an ecommerce platform.  
 The system is designed using **domain-driven service boundaries**, **event-driven communication**, **centralized authentication**, **fault tolerance**, and **observability**, all runnable in a **local development environment**.
 
 ---
@@ -16,15 +16,17 @@ ecommerce-microservices
 ├── inventory-service
 ├── notification-service
 │
+├── docs
+│   └── architecture.png
+│
+├── postman
+│   └── E-commerce Microservice.postman_collection.json
+│
 ├── pom.xml                # Parent Maven POM (multi-module)
 └── README.md
 ```
 
-Each service is an **independent Spring Boot application** with its own:
-- Maven build
-- Docker configuration
-- Database
-- Runtime lifecycle
+Each service is an **independent Spring Boot application** with its own Maven build, Docker configuration, database, and runtime lifecycle.
 
 ---
 
@@ -104,11 +106,10 @@ Each service is an **independent Spring Boot application** with its own:
 ## Architecture Overview
 
 ![Architecture Diagram](docs/architecture.png)
+
 ---
 
 ## Prerequisites
-
-Install the following locally:
 
 - Java 21
 - Docker & Docker Compose
@@ -123,8 +124,6 @@ Install the following locally:
 
 This is a **multi-module Maven project**.
 
-From the root directory:
-
 ```bash
 mvn clean install
 ```
@@ -135,7 +134,8 @@ To build an individual service:
 cd product-service
 mvn clean package
 ```
-And same step for all other project as above
+
+Repeat the same steps for other services.
 
 ---
 
@@ -152,10 +152,7 @@ cd order-service
 docker-compose up -d
 ```
 
-This starts required components such as:
-- Databases
-- Kafka (where applicable)
-- Supporting volumes
+This starts required components such as databases, Kafka (where applicable), and supporting volumes.
 
 ---
 
@@ -169,11 +166,11 @@ mvn spring-boot:run
 
 Recommended startup order:
 
-1. Inventory Service
-2. Product Service
-3. Order Service
-4. Notification Service
-5. API Gateway
+1. Inventory Service  
+2. Product Service  
+3. Order Service  
+4. Notification Service  
+5. API Gateway  
 
 ---
 
@@ -181,7 +178,7 @@ Recommended startup order:
 
 Each service exposes OpenAPI documentation.
 
-Example:
+Example (via API Gateway):
 
 ```
 http://localhost:9000/swagger-ui.html
@@ -189,12 +186,62 @@ http://localhost:9000/swagger-ui.html
 
 ---
 
+## Postman Collection
+
+A ready-to-use Postman collection is provided to test all APIs exposed by the system.
+
+### Location
+
+```
+postman/E-commerce Microservice.postman_collection.json
+```
+
+### Import Instructions
+
+1. Open **Postman**
+2. Click **Import**
+3. Select the collection file from the `postman` folder
+4. Import the collection
+
+### Included Requests
+
+The collection contains example requests for:
+- Product Service (create product, get products)
+- Order Service (create order)
+- Inventory Service (check stock availability)
+- Actuator endpoints (health & circuit breaker status)
+
+### Base URL
+
+All requests are routed through the **API Gateway**.
+
+```
+http://localhost:9000
+```
+
+### Authentication
+
+The Postman collection is preconfigured with **OAuth2 Client Credentials flow** using **Keycloak**.
+
+- Token URL:
+  ```
+  http://localhost:8181/realms/spring-microservices-security-realm/protocol/openid-connect/token
+  ```
+- Client ID:
+  ```
+  spring-client-credentials-id
+  ```
+
+Postman automatically fetches and attaches the access token to requests.
+
+---
+
 ## Observability & Monitoring
 
-- Spring Boot Actuator exposes metrics
-- Prometheus scrapes service metrics
+- Spring Boot Actuator exposes application metrics
+- Prometheus scrapes metrics
 - Grafana visualizes dashboards
-- Loki & Tempo provide centralized logging and tracing
+- Loki & Tempo provide centralized logging and distributed tracing
 
 ---
 
